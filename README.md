@@ -14,10 +14,10 @@ AI Terminal is a high-performance desktop command-line interface built entirely 
 ------------------------------
 ## 🛠️ Technical Stack
 
-* Frontend: Dioxus (using the RSX macro for React-like declarative UI in Rust).
-* Backend/Runtime: Tauri for window management and native API access (File System, Shell, HTTP).
-* Protocol: Model Context Protocol (MCP) for cross-app data sharing.
-* AI Agent: Integrates with Ollama for local LLMs or Claude/GPT-4 via Tauri’s HTTP client. 
+* **Frontend:** Dioxus (using the RSX macro for React-like declarative UI in Rust).
+* **Backend/Runtime:** Tauri for window management and native API access (File System, Shell, HTTP).
+* **Protocol:** Model Context Protocol (MCP) for cross-app data sharing.
+* **AI Agent:** Integrates with Ollama for local LLMs or Claude/GPT-4 via Tauri’s HTTP client. 
 
 ------------------------------
 ## 🚀 Quick Start (Development)## Prerequisites
