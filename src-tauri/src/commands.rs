@@ -105,8 +105,12 @@ pub async fn fetch_mcp_context(
     ))
 }
 
-/// Simple keyword-based NLP stub.
-/// Replace with a real Ollama or cloud LLM request in production.
+/// Lightweight keyword-based NLP stub.
+/// Replace with a real Ollama or cloud LLM call (`reqwest`) in production.
+///
+/// SECURITY NOTE: This stub is for command **preview** only. The returned string
+/// is never executed directly; it is shown to the user in the sandbox banner and
+/// only forwarded to `execute_approved_command` after explicit approval.
 fn stub_translate(input: &str) -> String {
     let lower = input.to_lowercase();
     if lower.contains("disk") || lower.contains("storage") {
@@ -120,6 +124,14 @@ fn stub_translate(input: &str) -> String {
     } else if lower.contains("network") || lower.contains("ip") {
         "ip addr show".to_string()
     } else {
-        format!("echo '{}'", input.replace('\'', "\\'"))
+        // Use single-quote escaping (replace ' with '\'') so that the preview
+        // string is safe for display. In production this branch is unreachable
+        // because the LLM generates the command rather than embedding raw input.
+        format!("echo {}", shell_single_quote(input))
     }
+}
+
+/// Wrap `s` in POSIX single quotes, escaping any embedded single quotes.
+fn shell_single_quote(s: &str) -> String {
+    format!("'{}'", s.replace('\'', "'\\''"))
 }

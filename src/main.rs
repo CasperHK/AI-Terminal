@@ -211,6 +211,10 @@ fn InputBar(
 
 /// Lightweight stub that maps natural language phrases to shell commands.
 /// Replace with a real Ollama/Claude call via the Tauri `process_command` IPC.
+///
+/// SECURITY NOTE: The returned string is shown in the sandbox preview banner
+/// and only executed after explicit user approval in `execute_approved_command`.
+/// It is never passed to a shell interpreter directly from this function.
 fn translate_natural_language(input: &str) -> String {
     let lower = input.to_lowercase();
     if lower.contains("disk") || lower.contains("storage") {
@@ -224,7 +228,15 @@ fn translate_natural_language(input: &str) -> String {
     } else if lower.contains("network") || lower.contains("ip") {
         "ip addr show".to_string()
     } else {
-        format!("echo '{}'", input.replace('\'', "\\'"))
+        // Use single-quote escaping (replace ' with '\'') so the preview string
+        // is safe for display. In production the LLM generates the command and
+        // this branch is unreachable.
+        format!("echo {}", shell_single_quote(input))
     }
+}
+
+/// Wrap `s` in POSIX single quotes, escaping any embedded single quotes.
+fn shell_single_quote(s: &str) -> String {
+    format!("'{}'", s.replace('\'', "'\\''"))
 }
 

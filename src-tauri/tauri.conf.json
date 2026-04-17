@@ -6,8 +6,8 @@
   "build": {
     "frontendDist": "../dist",
     "devUrl": "http://localhost:1420",
-    "beforeDevCommand": "cargo run --bin ai-terminal",
-    "beforeBuildCommand": "cargo build --release --bin ai-terminal"
+    "beforeDevCommand": "dx serve --platform desktop",
+    "beforeBuildCommand": "dx build --release --platform desktop"
   },
   "app": {
     "withGlobalTauri": false,
