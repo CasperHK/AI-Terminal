@@ -1,0 +1,29 @@
+[package]
+name = "ai-terminal-backend"
+version = "0.1.0"
+edition = "2021"
+description = "Tauri backend for AI Terminal — native commands and LLM integration"
+license = "MIT"
+
+[[bin]]
+name = "ai-terminal-backend"
+path = "src/main.rs"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-shell = "2"
+tauri-plugin-http = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+reqwest = { version = "0.12", features = ["json", "rustls-tls"], default-features = false }
+thiserror = "1"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[features]
+# Include Tauri's custom-protocol scheme for bundled assets (required for production)
+custom-protocol = ["tauri/custom-protocol"]

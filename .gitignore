@@ -1,0 +1,28 @@
+# Rust build artifacts
+/target/
+/src-tauri/target/
+
+# Cargo lock files (keep for binary crates)
+# Cargo.lock  <-- keep this for reproducible builds
+
+# Tauri build output
+/src-tauri/WixTools/
+/src-tauri/gen/
+
+# macOS artifacts
+.DS_Store
+*.xcodeproj/
+*.xcworkspace/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment files
+.env
+.env.local
+
+# Logs
+*.log

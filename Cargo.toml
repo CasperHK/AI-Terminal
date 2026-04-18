@@ -1,0 +1,29 @@
+[workspace]
+members = [".", "src-tauri"]
+resolver = "2"
+
+[package]
+name = "ai-terminal"
+version = "0.1.0"
+edition = "2021"
+description = "A high-performance desktop CLI built with Dioxus and Tauri"
+license = "MIT"
+repository = "https://github.com/CasperHK/AI-Terminal"
+
+[[bin]]
+name = "ai-terminal"
+path = "src/main.rs"
+
+[dependencies]
+dioxus = { version = "0.5", features = ["desktop"] }
+dioxus-desktop = { version = "0.5" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+
+[profile.release]
+opt-level = "z"     # Optimise for binary size
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
